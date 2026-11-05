@@ -28,6 +28,8 @@ jobs:
       - run: npm test
       - name: Check published types and entry points
         run: npm run check:exports
+      - name: Import the built package under the react-server condition
+        run: npm run check:rsc
 
   react-18:
     name: Test with React 18

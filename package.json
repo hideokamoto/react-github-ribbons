@@ -52,7 +52,8 @@
     "prepare": "husky",
     "typecheck": "tsc",
     "prepublishOnly": "npm run lint && npm test && npm run build",
-    "check:exports": "attw --pack ."
+    "check:exports": "attw --pack .",
+    "check:rsc": "node --conditions=react-server --input-type=module -e \"const m = await import('react-github-ribbons'); if (typeof m.default !== 'object' || typeof m.getRibbonImageURL !== 'function') throw new Error('unexpected exports under react-server')\""
   },
   "peerDependencies": {
     "react": ">=18"

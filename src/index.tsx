@@ -25,21 +25,23 @@ export type GitHubRibbonProps = Omit<
 
 const IMAGE_BASE_URL = 'https://github.blog/wp-content/uploads/2008/12/forkme_';
 
-const imageSuffixes: Record<GitHubRibbonColor, string> = {
-  green: 'green_007200.png?resize=149%2C149',
-  red: 'red_aa0000.png?resize=149%2C149',
-  orange: 'orange_ff7600.png',
-  grey: 'gray_6d6d6d.png?resize=149%2C149',
-  white: 'white_ffffff.png?resize=149%2C149',
-  black: 'darkblue_121621.png?resize=149%2C149',
-};
+// A Map (not an object literal) so inherited keys like "constructor" are not
+// treated as supported colors.
+const imageSuffixes = new Map<GitHubRibbonColor, string>([
+  ['green', 'green_007200.png?resize=149%2C149'],
+  ['red', 'red_aa0000.png?resize=149%2C149'],
+  ['orange', 'orange_ff7600.png'],
+  ['grey', 'gray_6d6d6d.png?resize=149%2C149'],
+  ['white', 'white_ffffff.png?resize=149%2C149'],
+  ['black', 'darkblue_121621.png?resize=149%2C149'],
+]);
 
 export const getRibbonImageURL = (
   position: GitHubRibbonPosition,
   color: GitHubRibbonColor = 'black'
 ): string => {
-  const suffix = imageSuffixes[color];
-  if (!suffix) {
+  const suffix = imageSuffixes.get(color);
+  if (suffix === undefined) {
     throw new Error(`unsupported color: ${color}`);
   }
   return `${IMAGE_BASE_URL}${position}_${suffix}`;

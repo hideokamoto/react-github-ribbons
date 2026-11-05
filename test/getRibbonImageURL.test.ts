@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { getRibbonImageURL } from '../src';
+import { type GitHubRibbonColor, getRibbonImageURL } from '../src';
 
 describe('getRibbonImageURL', () => {
   describe('position: right', () => {
@@ -123,5 +123,14 @@ describe('getRibbonImageURL', () => {
         getRibbonImageURL('right', 'purple')
       ).toThrow('unsupported color: purple');
     });
+
+    it.each(['constructor', 'toString', '__proto__'])(
+      'should throw for inherited object property %s',
+      (color) => {
+        expect(() =>
+          getRibbonImageURL('right', color as GitHubRibbonColor)
+        ).toThrow(`unsupported color: ${color}`);
+      }
+    );
   });
 });
