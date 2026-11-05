@@ -115,4 +115,13 @@ describe('getRibbonImageURL', () => {
       expect(result).toContain('forkme_right_darkblue_121621');
     });
   });
+
+  describe('unsupported color', () => {
+    it('should throw for a color outside the supported set', () => {
+      expect(() =>
+        // @ts-expect-error: runtime guard for untyped callers
+        getRibbonImageURL('right', 'purple')
+      ).toThrow('unsupported color: purple');
+    });
+  });
 });
