@@ -3,6 +3,10 @@
   "version": "0.3.0",
   "license": "MIT",
   "author": "Hidetaka Okamoto",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hideokamoto/react-github-ribbons.git"
+  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -13,24 +17,24 @@
       "require": "./dist/index.cjs"
     }
   },
-  "files": [
-    "dist",
-    "src"
-  ],
+  "files": ["dist", "src"],
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "dev": "vite build --watch",
     "build": "tsc && vite build",
+    "typecheck": "tsc",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
-    "prepare": "husky",
-    "release": "np"
+    "prepare": "husky"
   },
   "peerDependencies": {
     "react": ">=18"
@@ -46,7 +50,6 @@
     "@vitest/coverage-v8": "^4.0.10",
     "happy-dom": "^20.0.10",
     "husky": "^9.1.7",
-    "np": "^10.2.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "typescript": "^5.6.3",
