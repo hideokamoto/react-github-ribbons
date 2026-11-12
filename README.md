@@ -90,34 +90,50 @@ This project uses modern tooling:
 
 ### Available Scripts
 
+This project uses [pnpm](https://pnpm.io/) (the version is pinned in `packageManager` in `package.json`).
+
 ```bash
+# Install dependencies
+pnpm install
+
 # Development mode (watch mode)
-npm run dev
+pnpm run dev
 
 # Build the library
-npm run build
+pnpm run build
+
+# Type check
+pnpm run typecheck
 
 # Run tests
-npm test
+pnpm test
 
 # Run tests in watch mode
-npm run test:watch
+pnpm run test:watch
 
 # Lint code
-npm run lint
+pnpm run lint
 
 # Lint and auto-fix
-npm run lint:fix
+pnpm run lint:fix
 
 # Format code
-npm run format
+pnpm run format
 ```
 
 ### Development Workflow
 
 1. Make changes in `/src`
-2. Run `npm run dev` to build in watch mode
-3. Run `npm test` to verify tests pass
-4. Run `npm run lint` to check code quality
+2. Run `pnpm run dev` to build in watch mode
+3. Run `pnpm test` to verify tests pass
+4. Run `pnpm run lint` to check code quality
 
 The library will be built to `/dist` with both ESM and CommonJS formats.
+
+### Releases
+
+Releases are automated. Merging to `main` runs semantic-release on CircleCI
+(`workflows/publish/npm-polyrepo-semantic-release.yaml` in `hideokamoto/circleci-configurations`).
+It decides the next version from [Conventional Commits](https://www.conventionalcommits.org/)
+since the last `v*` tag, pushes the tag, publishes to npm, and creates the GitHub Release.
+Do not bump `version` in `package.json` by hand.
