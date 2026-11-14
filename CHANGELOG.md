@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.4.0 (unreleased)
+From 0.3.1 onward, release notes are published on
+[GitHub Releases](https://github.com/hideokamoto/react-github-ribbons/releases).
+This file is no longer updated. The entry below is the hand-written summary of
+the changes shipped in 0.3.1.
+
+## [0.3.1](https://github.com/hideokamoto/react-github-ribbons/tree/v0.3.1) (2026-11-14)
 
 ### Fixed
 
