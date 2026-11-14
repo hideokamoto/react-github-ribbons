@@ -79,22 +79,30 @@ const App = () => <GitHubRibbon {...props} />;
 ## Development
 
 ```bash
-npm ci
-npm run lint            # Biome lint + format check
-npm run typecheck       # tsc
-npm test                # Vitest
-npm run build           # Vite library build -> dist/
-npm run check:exports   # verify published entry points and types
+pnpm install
+pnpm run lint            # Biome lint + format check
+pnpm run typecheck       # tsc
+pnpm test                # Vitest
+pnpm run build           # Vite library build -> dist/
+pnpm run check:exports   # verify published entry points and types
 ```
 
 ## Release
 
-Releases are published from CircleCI, not GitHub Actions. The `npm publish`
-pipeline (config: `workflows/publish/npm-polyrepo-semantic-release.yaml` in
-[hideokamoto/circleci-configurations](https://github.com/hideokamoto/circleci-configurations))
-runs on pushes to `main`. semantic-release decides the version from the
-Conventional Commits since the last tag and publishes with npm trusted
-publishing (OIDC).
+Releases are automated by CircleCI. Merge a PR whose commits follow
+[Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, …)
+into `main`, and [semantic-release](https://github.com/semantic-release/semantic-release)
+pushes the git tag, publishes to npm via Trusted Publishing (OIDC), and creates the
+GitHub Release. Release notes are published on
+[GitHub Releases](https://github.com/hideokamoto/react-github-ribbons/releases).
+Do not bump `version`, create tags, or run `npm publish` / `np` manually.
 
-Publishing from a local machine also works: `npm publish` runs lint, tests and
-the build first (`prepublishOnly`).
+`feat:` -> minor, `fix:` / `perf:` -> patch, `feat!:` or a `BREAKING CHANGE:` footer
+-> major. `chore:` / `docs:` / `ci:` / `test:` / merge commits do not release.
+Commit messages are checked locally by commitlint (husky `commit-msg` hook,
+enabled by `pnpm install`).
+
+The pipeline definition is shared via
+[`circleci-configurations`](https://github.com/hideokamoto/circleci-configurations)
+(`workflows/publish/npm-polyrepo-semantic-release.yaml`). The release settings
+live in `.releaserc.json`.
