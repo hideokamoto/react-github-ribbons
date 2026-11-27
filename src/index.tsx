@@ -40,6 +40,9 @@ export const getRibbonImageURL = (
   position: GitHubRibbonPosition,
   color: GitHubRibbonColor = 'black'
 ): string => {
+  if (position !== 'left' && position !== 'right') {
+    throw new Error(`unsupported position: ${position}`);
+  }
   const suffix = imageSuffixes.get(color);
   if (suffix === undefined) {
     throw new Error(`unsupported color: ${color}`);

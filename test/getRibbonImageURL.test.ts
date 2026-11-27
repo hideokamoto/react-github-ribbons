@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { type GitHubRibbonColor, getRibbonImageURL } from '../src';
+import {
+  type GitHubRibbonColor,
+  type GitHubRibbonPosition,
+  getRibbonImageURL,
+} from '../src';
 
 describe('getRibbonImageURL', () => {
   describe('position: right', () => {
@@ -114,6 +118,17 @@ describe('getRibbonImageURL', () => {
       // Assert
       expect(result).toContain('forkme_right_darkblue_121621');
     });
+  });
+
+  describe('unsupported position', () => {
+    it.each(['top', 'bottom', '', 'constructor'])(
+      'should throw for position %j',
+      (position) => {
+        expect(() =>
+          getRibbonImageURL(position as GitHubRibbonPosition, 'black')
+        ).toThrow(`unsupported position: ${position}`);
+      }
+    );
   });
 
   describe('unsupported color', () => {
